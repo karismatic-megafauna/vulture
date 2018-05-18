@@ -1,0 +1,27 @@
+{
+  "name": "vulture",
+  "version": "1.0.0",
+  "description": "A package that helps you find files that are dead",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/michaelghinrichs/vulture.git"
+  },
+  "keywords": [
+    "node",
+    "dead-code",
+    "cli",
+    "elimination",
+    "js",
+    "tooling"
+  ],
+  "author": "michaelghinrichs",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/michaelghinrichs/vulture/issues"
+  },
+  "homepage": "https://github.com/michaelghinrichs/vulture#readme"
+}
