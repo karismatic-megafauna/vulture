@@ -16,7 +16,6 @@ const {
 } = require('ramda')
 
 // UTILS
-
 const traverseAndMerge = traverse => list => pipeP(
   mapP(traverse),
   flatten,
@@ -28,11 +27,13 @@ const transpile = code => code.replace(
   /export (.)* from/,
   'import default from'
 )
-const parse = code =>
+
+const parse = code => (
   acorn.parse_dammit(
     transpile(code),
     { sourceType: 'module' }
   )
+)
 
 const extractImports = code => {
   const imports = []
@@ -65,7 +66,7 @@ const configureResolver =
   (cfg) => module => dependency => {
     const sources = isNpm(cfg, dependency)
       ? []
-      : [path.dirname(module)].concat(cfg.alternatePaths)
+      : [path.dirname(module)]
     return resolveFile(
       tryExtensions(cfg.extensions),
       sources,

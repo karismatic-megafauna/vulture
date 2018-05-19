@@ -8,7 +8,7 @@ const mapP = mapFunction => list => Promise.all(list.map(mapFunction))
 const filterValid = filter(x => x)
 const debug = x => {
   console.log(JSON.stringify(x, null, 2))
-  return x
+  return x;
 }
 const sort = list => list.sort()
 

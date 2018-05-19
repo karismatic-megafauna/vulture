@@ -1,72 +1,18 @@
-// Eventually move this to a configuration file
-// .module-extractor.rc
-const config = {
-  // sourceDir: '/Users/remyy/Applications/ruby/procore/',
-  sourceDir: '/Users/georgemichael/Code/Procore/procore',
-  destinationDir: 'documents',
-  toolRoot: 'src/_shared/tools/documents',
-  extraFiles: [
-    // NOTE: replace this line with the provider that you use!
-    'src/_shared/decorators/sagaProvider/__tests__/MockComponent.jsx',
-  ],
-  entryPoints: [
-    'src/_shared/tools/documents/mounts/integrations.js',
-  ],
-}
-
 const path = require('path')
 const { fromPath, extractNpmDependencies } = require('./src/lib.js')
 
-// MIGRATION CONFIGURATION
-
-// ASSUMING PROCORE STRUCTURE
-const wrench = path.join(config.sourceDir, 'wrench')
-const hydra = path.join(config.sourceDir, 'hydra_clients')
-const wrenchPackageJson = path.join(wrench, 'package.json')
-const packages = extractNpmDependencies(wrenchPackageJson)
-
-// extraFiles
-// ==========
-// we currently only parse JS files because that's what acorn supports
-// Because we can't extract imgage imports from those CSS files
-// We need to hard code the paths in extraFiles
-
-const extraFiles = [
-  'src/assets',
-  'src/_shared/tests',
-  '.env',
-  '.eslintrc',
-  '.eslintignore',
-  '.gitignore',
-  '.mocha.opts',
-  'yarn.lock',
-  '.hound.yml',
-  config.toolRoot,
-].concat(config.extraFiles)
-
-
-// entryPoints
-// ==========
-// Mount points you want to migrate to hydra
-// The dependency crawling will start from these files
-
-const migratorConfig = {
-  hydra,
-  entryPoints: fromPath(wrench, config.entryPoints),
-  extraFiles: fromPath(wrench, extraFiles),
-  rootDir: wrench,
-  destinationDir: path.join(hydra, config.destinationDir),
-  // debug: true,
+const config = {
+  sourceDir: '/Users/georgemichael/Code/Procore/vulture',
+  entryPoints: [
+    '/Users/georgemichael/Code/Procore/vulture/testDir/root.js',
+  ],
 }
 
-// CUSTOM RESOLVER CONFIGURATION
-// =============================
-// The current resolver is not smart enough to resolve in these paths
-// Depending on your tool needs, specify extra paths
+// ASSUMING PROCORE STRUCTURE
+const packageJson = path.join(config.sourceDir, 'package.json')
+const packages = extractNpmDependencies(packageJson)
 
 const resolverConfig = {
-  alternatePaths: fromPath(wrench, ['src']),
-  packageEntries: packages,
   packages: Object.keys(packages),
   extensions: [
     '/index.jsx',
@@ -80,6 +26,6 @@ const resolverConfig = {
 }
 
 module.exports = {
-  migratorConfig,
+  config,
   resolverConfig,
 }
