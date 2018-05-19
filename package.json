@@ -23,5 +23,8 @@
   "bugs": {
     "url": "https://github.com/michaelghinrichs/vulture/issues"
   },
-  "homepage": "https://github.com/michaelghinrichs/vulture#readme"
+  "homepage": "https://github.com/michaelghinrichs/vulture#readme",
+  "dependencies": {
+    "fs-promise": "^2.0.3"
+  }
 }
