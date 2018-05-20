@@ -6,6 +6,7 @@ const {
   readFile,
   tryExtensions,
   filterValid,
+  debug,
 } = require('./lib.js')
 const {
   map,
@@ -55,9 +56,11 @@ const extractImports = code => {
 
 const resolveFile = (resolver, sources, dependency) =>
   sources.reduce(
-    (acc, directory) =>
-      acc || resolver(path.resolve(path.join(directory, dependency))),
-    false
+    (acc, directory) => {
+      return (
+        acc || resolver(path.resolve(path.join(directory, dependency)))
+      )
+    }, false
   )
 
 const isNpm = (cfg, dependency) => cfg.packages.includes(dependency)
@@ -66,7 +69,8 @@ const configureResolver =
   (cfg) => module => dependency => {
     const sources = isNpm(cfg, dependency)
       ? []
-      : [path.dirname(module)]
+      : [path.dirname(module)].concat(cfg.alternatePaths)
+
     return resolveFile(
       tryExtensions(cfg.extensions),
       sources,
@@ -79,10 +83,9 @@ module.exports = config => {
   const VISITED = {}
 
   const getDependencies = async file => {
-    // skip or visit
     if (VISITED[file]) { return [] }
     VISITED[file] = true
-    // Async Pipeline
+
     return pipeP(
       readFile,
       extractImports,
@@ -91,8 +94,10 @@ module.exports = config => {
       traverseAndMerge(getDependencies)
     )(file)
   }
-  return dependencies =>
-    Promise.all(dependencies.map(getDependencies))
+
+  return entryPoints =>
+    Promise.all(entryPoints.map(getDependencies))
       .then(flatten)
       .then(uniq)
+      .then(files => files.concat(entryPoints))
 }

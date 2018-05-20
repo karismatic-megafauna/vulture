@@ -12,6 +12,11 @@ const debug = x => {
   console.log(JSON.stringify(x, null, 2))
   return x;
 }
+
+const excludeIfContains = exclusion => path => {
+  const containsExclusion = path.includes(exclusion);
+  return containsExclusion ? null : path
+}
 const sort = list => list.sort()
 
 // FILE UTILS
@@ -26,6 +31,7 @@ const tryFile = file => {
     return undefined
   }
 }
+
 const tryExtensions = extensions => file => extensions.reduce(
   (acc, ext) => acc ? acc : tryFile(file + ext),
   undefined
@@ -38,6 +44,15 @@ const readDirDeep = async (dir, allFiles = []) => {
     (await stat(f)).isDirectory() && readDirDeep(f, allFiles)
   )))
   return allFiles
+}
+
+const getFiles = async (dir) => {
+  const subdirs = await readdir(dir);
+  const files = await Promise.all(subdirs.map(async (subdir) => {
+    const res = path.resolve(dir, subdir);
+    return (await stat(res)).isDirectory() ? getFiles(res) : res;
+  }));
+  return files.reduce((a, f) => a.concat(f), []);
 }
 
 const readFile = file => {
@@ -69,6 +84,7 @@ const extractNpmDependencies = packageJson => {
 
 module.exports = {
   debug,
+  excludeIfContains,
   extractNpmDependencies,
   fromPath,
   filterValid,
@@ -77,6 +93,7 @@ module.exports = {
   mapP,
   readFile,
   readDirDeep,
+  getFiles,
   taskDone,
   tryExtensions,
   tryFile,

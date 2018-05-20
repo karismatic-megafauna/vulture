@@ -1,0 +1,7 @@
+{
+  "project": "/Users/georgemichael/Code/Procore/vulture",
+  "sourceDir": "/Users/georgemichael/Code/Procore/vulture/testDir",
+  "entryPoints": [
+    "/Users/georgemichael/Code/Procore/vulture/testDir/root.js"
+  ]
+}

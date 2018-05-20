@@ -1,13 +1,22 @@
 const path = require('path')
-const { fromPath, extractNpmDependencies } = require('./src/lib.js')
+const process = require('process')
+const { map } = require('ramda')
+const { fromPath, readFile, extractNpmDependencies, debug } = require('./src/lib.js')
 
-const config = {
-  project: '/Users/georgemichael/Code/Procore/vulture',
-  sourceDir: '/Users/georgemichael/Code/Procore/vulture/testDir',
+const defaultConfig = {
+  project: process.cwd(),
+  sourceDir: `${process.cwd()}/testDir`,
   entryPoints: [
-    '/Users/georgemichael/Code/Procore/vulture/testDir/root.js',
+    `${process.cwd()}/testDir/root.js`,
   ],
 }
+
+const setup = (conf = defaultConfig) => {
+  return conf;
+}
+
+const configFile = require(path.join(process.cwd(), process.argv[2]))
+const config = setup(configFile);
 
 // ASSUMING PROCORE STRUCTURE
 const packageJson = path.join(config.project, 'package.json')
@@ -27,6 +36,7 @@ const resolverConfig = {
 }
 
 module.exports = {
+  setup,
   config,
   resolverConfig,
 }
