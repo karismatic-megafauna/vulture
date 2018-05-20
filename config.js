@@ -2,14 +2,15 @@ const path = require('path')
 const { fromPath, extractNpmDependencies } = require('./src/lib.js')
 
 const config = {
-  sourceDir: '/Users/georgemichael/Code/Procore/vulture',
+  project: '/Users/georgemichael/Code/Procore/vulture',
+  sourceDir: '/Users/georgemichael/Code/Procore/vulture/testDir',
   entryPoints: [
     '/Users/georgemichael/Code/Procore/vulture/testDir/root.js',
   ],
 }
 
 // ASSUMING PROCORE STRUCTURE
-const packageJson = path.join(config.sourceDir, 'package.json')
+const packageJson = path.join(config.project, 'package.json')
 const packages = extractNpmDependencies(packageJson)
 
 const resolverConfig = {

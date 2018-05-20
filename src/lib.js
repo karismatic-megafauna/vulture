@@ -1,5 +1,7 @@
 const path = require('path')
 const fs = require('fs-extra')
+const fsPromise = require('fs-promise');
+const { readdir, stat } = fsPromise;
 const { filter } = require('ramda')
 
 // UTILS
@@ -28,6 +30,15 @@ const tryExtensions = extensions => file => extensions.reduce(
   (acc, ext) => acc ? acc : tryFile(file + ext),
   undefined
 )
+
+const readDirDeep = async (dir, allFiles = []) => {
+  const files = (await readdir(dir)).map(f => path.join(dir, f))
+  allFiles.push(...files)
+  await Promise.all(files.map(async f => (
+    (await stat(f)).isDirectory() && readDirDeep(f, allFiles)
+  )))
+  return allFiles
+}
 
 const readFile = file => {
   return new Promise((resolve, reject) => {
@@ -65,6 +76,7 @@ module.exports = {
   getDir: path.dirname,
   mapP,
   readFile,
+  readDirDeep,
   taskDone,
   tryExtensions,
   tryFile,
