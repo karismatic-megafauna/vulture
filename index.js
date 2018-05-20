@@ -35,6 +35,7 @@ const run = (config) => {
   const packages = extractNpmDependencies(packageJson)
 
   const resolverConfig = {
+    // TODO: move alternatePaths to the config object
     alternatePaths: fromPath(config.project, ['src']),
     packages: Object.keys(packages),
     extensions: [
