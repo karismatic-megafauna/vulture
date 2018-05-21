@@ -37,7 +37,7 @@ const run = (config) => {
 
   const resolverConfig = {
     // TODO: move alternatePaths to the config object
-    alternatePaths: fromPath(config.project, alternatePaths),
+    alternatePaths: fromPath(config.project, config.alternatePaths),
     packages: Object.keys(packages),
     extensions: [
       '/index.jsx',
