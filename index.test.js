@@ -11,7 +11,6 @@ test('index test', () => {
   }
 
   const result = [
-    "/Users/georgemichael/Code/Procore/vulture/testDir/anotherNestedDir/index.js",
     "/Users/georgemichael/Code/Procore/vulture/testDir/anotherNestedDir/unused.js",
     "/Users/georgemichael/Code/Procore/vulture/testDir/nestedDir/unused.js",
     "/Users/georgemichael/Code/Procore/vulture/testDir/siblingUnused.js",

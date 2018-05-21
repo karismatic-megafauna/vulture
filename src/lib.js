@@ -15,8 +15,10 @@ const debug = x => {
 
 const excludeIfContains = exclusion => path => {
   const containsExclusion = path.includes(exclusion);
+
   return containsExclusion ? null : path
 }
+
 const sort = list => list.sort()
 
 // FILE UTILS
