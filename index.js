@@ -28,6 +28,7 @@ const defaultConfig = {
   entryPoints: [
     `${process.cwd()}/testDir/root.js`,
   ],
+  alternatePaths: ['src','src/_shared'],
 }
 
 const run = (config) => {
@@ -36,7 +37,7 @@ const run = (config) => {
 
   const resolverConfig = {
     // TODO: move alternatePaths to the config object
-    alternatePaths: fromPath(config.project, ['src']),
+    alternatePaths: fromPath(config.project, alternatePaths),
     packages: Object.keys(packages),
     extensions: [
       '/index.jsx',
