@@ -5,6 +5,7 @@ test('index test', () => {
   const defaultConfig = {
     project: process.cwd(),
     sourceDir: `${process.cwd()}/testDir`,
+    alternatePaths: ['src'],
     entryPoints: [
       `${process.cwd()}/testDir/root.js`,
     ],
