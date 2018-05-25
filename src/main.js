@@ -1,4 +1,5 @@
-const dt = require('./src/dependency-tree.js')
+#!/usr/bin/env node
+const dt = require('./dependency-tree.js')
 const process = require('process')
 const path = require('path')
 const {
@@ -20,7 +21,7 @@ const {
   getFiles,
   readFile,
   sort,
-} = require('./src/lib.js')
+} = require('./lib.js')
 
 const defaultConfig = {
   project: process.cwd(),

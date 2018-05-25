@@ -1,5 +1,4 @@
-const { run } = require('./index.js');
-
+const { run } = require('./main.js');
 
 test('index test', () => {
   const defaultConfig = {
