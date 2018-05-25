@@ -12,11 +12,11 @@ test('index test', () => {
   }
 
   const result = [
-    "/Users/georgemichael/Code/Procore/vulture/testDir/anotherNestedDir/unused.js",
-    "/Users/georgemichael/Code/Procore/vulture/testDir/nestedDir/unused.js",
-    "/Users/georgemichael/Code/Procore/vulture/testDir/siblingUnused.js",
-    "/Users/georgemichael/Code/Procore/vulture/testDir/unused.js",
-    "/Users/georgemichael/Code/Procore/vulture/testDir/unusedWithImports.js",
+    `${defaultConfig.sourceDir}/anotherNestedDir/unused.js`,
+    `${defaultConfig.sourceDir}/nestedDir/unused.js`,
+    `${defaultConfig.sourceDir}/siblingUnused.js`,
+    `${defaultConfig.sourceDir}/unused.js`,
+    `${defaultConfig.sourceDir}/unusedWithImports.js`,
   ].sort()
 
   expect.assertions(1);

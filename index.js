@@ -24,19 +24,18 @@ const {
 
 const defaultConfig = {
   project: process.cwd(),
-  sourceDir: `${process.cwd()}/testDir`,
+  sourceDir: `${process.cwd()}/exampleDir`,
   entryPoints: [
-    `${process.cwd()}/testDir/root.js`,
+    `${process.cwd()}/exampleDir/root.js`,
   ],
-  alternatePaths: ['src','src/_shared'],
+  alternatePaths: ['src'],
 }
 
-const run = (config) => {
+const run = ( config ) => {
   const packageJson = path.join(config.project, 'package.json')
   const packages = extractNpmDependencies(packageJson)
 
   const resolverConfig = {
-    // TODO: move alternatePaths to the config object
     alternatePaths: fromPath(config.project, config.alternatePaths),
     packages: Object.keys(packages),
     extensions: [
@@ -67,6 +66,7 @@ const run = (config) => {
       }
     ).then(sort)
 }
+
 
 if (!process.env.TEST) {
   if (process.argv[2]) {
