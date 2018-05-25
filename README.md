@@ -2,9 +2,28 @@
 Helps you find dead files! Cawwww!
 
 ## Installation
-Currently, it's a bit cumbersome as I am working on getting the name of the
-package `vulture` from another package of the same name that is no longer being
-worked on.
+Clone this repo
+
+I am working on getting the name of the package `vulture` from another package
+of the same name that is no longer being worked on. Then it would be through NPM
+
+## Usage
+~~ IN PROGRESS, suspect to change ~~
+Currently, you must pass in a configuration file that has these keys:
+
+```js
+module.exports = {
+  project: process.cwd(), // path to project
+  sourceDir: `${process.cwd()}/src` // path to source,
+  entryPoints: [
+    `${process.cwd()}/src/index.js`, // path(s) to mount points of application
+  ],
+  alternatePaths: ['src/_shared'],
+}
+```
+
+In the future, this will be a `.vulturerc` file, similar to how babel or eslint
+are configured.
 
 ## Development
 For local dev, follow these steps!

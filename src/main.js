@@ -23,7 +23,8 @@ const {
   sort,
 } = require('./lib.js')
 
-const defaultConfig = {
+const defaultConfig =
+  {
   project: process.cwd(),
   sourceDir: `${process.cwd()}/exampleDir`,
   entryPoints: [
