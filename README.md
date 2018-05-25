@@ -1,8 +1,20 @@
 # Vulture
-Helps you find code that is dead so you can eliminate it!
+Helps you find dead files! Cawwww!
 
-Development is ongoing so not posting anything very detailed about how to use,
-but it is very likely that it will be the config file approach.
+## Installation
+Currently, it's a bit cumbersome as I am working on getting the name of the
+package `vulture` from another package of the same name that is no longer being
+worked on.
+
+## Development
+For local dev, follow these steps!
+
+At the root of the package:
+
+1. npm link
+1. yarn start
+
+You should now be able to use the `vulture` command.
 
 ## Dead File Finding Strategy
 At a high level, this is what we are doing...
@@ -13,4 +25,4 @@ At a high level, this is what we are doing...
 - once all files have been traversed, compare file list to all files in src
 
 
-## Contributors Welcome!
+Contributors Welcome!

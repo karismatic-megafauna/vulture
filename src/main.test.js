@@ -3,10 +3,10 @@ const { run } = require('./main.js');
 test('index test', () => {
   const defaultConfig = {
     project: process.cwd(),
-    sourceDir: `${process.cwd()}/testDir`,
+    sourceDir: `${process.cwd()}/exampleDir`,
     alternatePaths: ['src'],
     entryPoints: [
-      `${process.cwd()}/testDir/root.js`,
+      `${process.cwd()}/exampleDir/root.js`,
     ],
   }
 
