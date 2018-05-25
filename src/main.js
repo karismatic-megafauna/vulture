@@ -2,6 +2,7 @@
 const dt = require('./dependency-tree.js')
 const process = require('process')
 const path = require('path')
+const fs = require('fs')
 const {
   map,
   reject,
@@ -87,8 +88,17 @@ if (!process.env.TEST) {
     run(require(path.join(process.cwd(), process.argv[2])))
       .then(map(debug))
   } else {
-    run(defaultConfig)
-      .then(map(debug))
+    const vultureRC = path.join(process.cwd(), '.vulturerc');
+
+    fs.stat(vultureRC, (err, stat) => {
+      if (err == null) {
+        run(vultureRC).then(map(debug))
+      } else if (err.code === 'ENOENT') {
+        console.log('no `.vulturerc` found! :(');
+      } else {
+        console.log('ERROR:', err,code);
+      }
+    });
   }
 }
 
