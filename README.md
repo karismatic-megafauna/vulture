@@ -9,6 +9,7 @@ of the same name that is no longer being worked on. Then it would be through NPM
 
 ## Usage
 ~~ IN PROGRESS, suspect to change ~~
+
 Currently, you must pass in a configuration file that has these keys:
 
 ```js
