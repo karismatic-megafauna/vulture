@@ -13,8 +13,10 @@ const debug = x => {
   return x;
 }
 
-const excludeIfContains = exclusion => path => {
-  const containsExclusion = path.includes(exclusion);
+const excludeIfContains = exclusionArry => path => {
+  const containsExclusion = exclusionArry.find((exclusion) => {
+    return path.includes(exclusion)
+  });
 
   return containsExclusion ? null : path
 }

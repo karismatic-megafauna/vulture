@@ -23,8 +23,7 @@ const {
   sort,
 } = require('./lib.js')
 
-const defaultConfig =
-  {
+const defaultConfig = {
   project: process.cwd(),
   sourceDir: `${process.cwd()}/exampleDir`,
   entryPoints: [
@@ -33,9 +32,22 @@ const defaultConfig =
   alternatePaths: ['src'],
 }
 
-const run = ( config ) => {
+const run = (config) => {
   const packageJson = path.join(config.project, 'package.json')
   const packages = extractNpmDependencies(packageJson)
+
+  const filesToExclude = config.filesToExclude || [
+    '.md',
+    '.princess',
+    '.scss',
+    '.eot',
+    '.woff2',
+    '.woff',
+    '.ttf',
+    '.png',
+    '.DS_Store',
+    '.svg',
+  ];
 
   const resolverConfig = {
     alternatePaths: fromPath(config.project, config.alternatePaths),
@@ -52,9 +64,7 @@ const run = ( config ) => {
     ],
   }
   const getDependencies = dt(resolverConfig)
-
   const dependencies = getDependencies(config.entryPoints)
-
   const allFiles = getFiles(config.sourceDir)
 
   return Promise.all([dependencies, allFiles])
@@ -66,36 +76,18 @@ const run = ( config ) => {
 
         return unusedFiles
       }
-    ).then(sort)
+    )
+    .then(sort)
+    .then(filter(excludeIfContains(filesToExclude)))
 }
 
 
 if (!process.env.TEST) {
   if (process.argv[2]) {
     run(require(path.join(process.cwd(), process.argv[2])))
-      .then(filter(excludeIfContains('test')))
-      .then(filter(excludeIfContains('.md')))
-      .then(filter(excludeIfContains('.princess')))
-      .then(filter(excludeIfContains('.scss')))
-      .then(filter(excludeIfContains('.svg')))
-      .then(filter(excludeIfContains('.png')))
-      .then(filter(excludeIfContains('.ttf')))
-      .then(filter(excludeIfContains('.woff')))
-      .then(filter(excludeIfContains('.woff2')))
-      .then(filter(excludeIfContains('.eot')))
       .then(map(debug))
   } else {
     run(defaultConfig)
-      .then(filter(excludeIfContains('test')))
-      .then(filter(excludeIfContains('.md')))
-      .then(filter(excludeIfContains('.princess')))
-      .then(filter(excludeIfContains('.scss')))
-      .then(filter(excludeIfContains('.svg')))
-      .then(filter(excludeIfContains('.png')))
-      .then(filter(excludeIfContains('.ttf')))
-      .then(filter(excludeIfContains('.woff')))
-      .then(filter(excludeIfContains('.woff2')))
-      .then(filter(excludeIfContains('.eot')))
       .then(map(debug))
   }
 }
