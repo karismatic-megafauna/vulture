@@ -1,5 +1,7 @@
 # Vulture
-Helps you find dead files! Cawwww!
+Helps you find dead files! 
+
+🍖🦅Cawww 🦅🍖
 
 ## Installation
 Clone this repo
